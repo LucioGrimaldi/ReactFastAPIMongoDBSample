@@ -1,7 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
+from backend.model import Employee, Employees
+from db import(
+    fetch_one_employee_by_id,
+    fetch_all_employees,
+    create_employee,
+    update_employee,
+    remove_employee
+)
 app = FastAPI()
+
 origins = ['https://localhost:3000']
 
 app.add_middleware(
@@ -18,13 +26,17 @@ def read_root():
 
 @app.get("/api/get_employees_list")
 async def get_list():
-    return 1
+    response = await fetch_all_employees()
+    return response
 
-@app.get("/api/get_employee_by_id")
+@app.get("/api/get_employee_by_id", response_model=Employee)
 async def get_employee_by_id(id):
-    return 1
+    response = await fetch_one_employee_by_id(id)
+    if response:
+        return response
+    raise HTTPException(404, f"Employee with id={id} not found")
 
-@app.post("/api/add_employee")
+@app.post("/api/add_employee", response_model=Employee)
 async def add_employee(employee):
     return 1
 

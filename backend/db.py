@@ -1,5 +1,5 @@
 from typing import Collection
-from model import Employees
+from model import Employee
 import motor.motor_asyncio #MongoDB driver
 
 client = motor.motor_asyncio.AsyncIOMotorClient('mongodb//localhost:27017')
@@ -15,7 +15,7 @@ async def fetch_all_employees():
     employees = []
     cursor = collection.find({})
     async for document in cursor:
-        employees.append(Employees(**document))
+        employees.append(Employee(**document))
     return employees
 
 async def create_employee(employee):

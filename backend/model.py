@@ -1,7 +1,7 @@
 #create json schemas from model
 from pydantic import BaseModel
 
-class Employees(BaseModel):
+class Employee(BaseModel):
     id : int
     name : str
     surname : str
