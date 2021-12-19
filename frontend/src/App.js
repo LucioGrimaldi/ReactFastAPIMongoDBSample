@@ -6,13 +6,15 @@ import EmployeesView from './components/EmployeesListView';
 
 function App() {
 
+  const [searchList, setSearchList] = useState([{}])
   const [employeesList, setEmployeeList] = useState([{}])
   const [id, setId] = useState('') 
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
   const [address, setAddress] = useState('')
   const [phone_number, setPhoneNumber] = useState('')
-
+  const [search_key, setSearchKey] = useState('')
+  const [search_value, setSearchValue] = useState('')
   // Read all employees after every render
   //useEffect(() => {
   //  axios.get('http://localhost:8000/api/get_employees_list')
@@ -34,8 +36,9 @@ function App() {
 
   //search
   const searchEmployee = () => {
-    axios.get('http://localhost:8000/api/get_employee/')
-  }
+    axios.get('http://localhost:8000/api/get_employees/', {params: {'key':search_key, 'value':search_value}})
+      .then((res) => setSearchList(res.data))
+  };
 
   return (
   <div className="App list-group-item  justify-content-center align-items-center mx-auto" style={{"width":"600px", "backgroundColor":"white", "marginTop":"15px"}} >
@@ -55,8 +58,13 @@ function App() {
       <div >
       <EmployeesView employeesList={employeesList} />
       </div>
-      <input className="mb-2 form-control search" onChange={event => {}} placeholder='Insert key for search (id, name, surname, address or phone_number)'/> 
-
+      <h5 className="card text-white bg-dark mb-3"></h5>
+      <input className="mb-2 form-control search" onChange={event => setSearchKey(event.target.value)} placeholder='Insert key for search (id, name, surname, address or phone_number)'/> 
+      <input className="mb-2 form-control search" onChange={event => setSearchValue(event.target.value)} placeholder='Insert value'/>
+      <button className="btn btn-outline-primary mx-2 mb-3" style={{'borderRadius':'50px',"font-weight":"bold"}}  onClick={searchEmployee}>Search</button>
+      </div>
+      <div >
+      <EmployeesView employeesList={searchList} />
       </div>
       <h6 className="card text-dark bg-warning py-1 mb-0" >Created by Lucio Grimaldi</h6>
     </div>

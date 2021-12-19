@@ -6,7 +6,7 @@ from db import(
     update_employee_phone_number,
     update_employee_address,
     get_all_employees,
-    get_employees,
+    get_employees_by_key_value,
     create_employee,
     remove_employee_by_name,
     remove_employee_by_id,
@@ -33,8 +33,8 @@ async def get_list():
     return response
 
 @app.get("/api/get_employees/")
-async def get_employee(key, value):
-    response = await get_employees(key, value)
+async def get_employees(key, value):
+    response = await get_employees_by_key_value(key, value)
     return response
 
 @app.post("/api/add_employee/", response_model=Employee)
