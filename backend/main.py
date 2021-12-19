@@ -12,11 +12,11 @@ from db import(
 )
 app = FastAPI()
 
-origins = ['https://localhost:3000']
+#origins = ['https://localhost:3000']
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = origins,
+    allow_origins = ["*"],
     allow_credentials = True,
     allow_methods = ["*"],
     allow_headers = ["*"],
@@ -41,6 +41,7 @@ async def get_employee(key, value):
 @app.post("/api/add_employee/", response_model=Employee)
 async def add_employee(employee:Employee):
     response = await create_employee(employee.dict())
+    #print(response)
     if response:
         return response
     raise HTTPException(400, "Something went wrong, bad request")

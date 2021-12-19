@@ -14,12 +14,12 @@ function App() {
   const [phone_number, setPhoneNumber] = useState('')
 
   // Read all employees after every render
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/get_employees_list')
-      .then(res => {
-        setEmployeeList(res.data)
-      })
-  });
+  //useEffect(() => {
+  //  axios.get('http://localhost:8000/api/get_employees_list')
+  //    .then(res => {
+  //      setEmployeeList(res.data)
+  //    })
+  //});
 
   const updateEmployeeList = () => {
   axios.get('http://localhost:8000/api/get_employees_list')
@@ -29,7 +29,7 @@ function App() {
   // Post an employee
   const addEmployeeHandler = () => {
     axios.post('http://localhost:8000/api/add_employee/', { 'id': id, 'name': name, 'surname': surname, 'address': address, 'phone_number': phone_number })
-      .then(res => console.log(res))
+      .then((res) => console.log(res))
   };
 
   return (
