@@ -32,6 +32,11 @@ function App() {
       .then((res) => console.log(res))
   };
 
+  //search
+  const searchEmployee = () => {
+    axios.get('http://localhost:8000/api/get_employee/')
+  }
+
   return (
   <div className="App list-group-item  justify-content-center align-items-center mx-auto" style={{"width":"600px", "backgroundColor":"white", "marginTop":"15px"}} >
       <h1 className="card text-white bg-primary mb-1" styleName="max-width: 20rem;">React-FastAPI-MongoDB Sample</h1>
@@ -50,6 +55,8 @@ function App() {
       <div >
       <EmployeesView employeesList={employeesList} />
       </div>
+      <input className="mb-2 form-control search" onChange={event => {}} placeholder='Insert key for search (id, name, surname, address or phone_number)'/> 
+
       </div>
       <h6 className="card text-dark bg-warning py-1 mb-0" >Created by Lucio Grimaldi</h6>
     </div>

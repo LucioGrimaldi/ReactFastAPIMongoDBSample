@@ -6,9 +6,12 @@ client = motor.motor_asyncio.AsyncIOMotorClient('mongodb://localhost:27017')
 database = client.Employees
 collection = database.employees
 
-async def get_one_employee(key, value):
-    document = await collection.find_one({key:value})
-    return document
+async def get_employees(key, value):
+    employees = []
+    cursor = collection.find({key:value})
+    async for document in cursor:
+        employees.append(Employee(**document))
+    return employees
 
 
 async def get_all_employees():

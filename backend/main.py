@@ -1,11 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic.types import Json
 from model import Employee
 from db import(
     update_employee_phone_number,
     update_employee_address,
     get_all_employees,
-    get_one_employee,
+    get_employees,
     create_employee,
     remove_employee_by_name,
     remove_employee_by_id,
@@ -31,12 +32,10 @@ async def get_list():
     response = await get_all_employees()
     return response
 
-@app.get("/api/get_employee", response_model=Employee)
+@app.get("/api/get_employees/")
 async def get_employee(key, value):
-    response = await get_one_employee(key, value)
-    if response:
-        return response
-    raise HTTPException(404, f"Employee with {key} = {value} not found")
+    response = await get_employees(key, value)
+    return response
 
 @app.post("/api/add_employee/", response_model=Employee)
 async def add_employee(employee:Employee):

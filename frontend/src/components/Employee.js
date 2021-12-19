@@ -3,7 +3,7 @@ import React from 'react'
 
 function EmployeeItem(props){
     const deleteEmployeeHandler = (id) => {
-        axios.delete('http://localhost:8000/api/delete_employee/id=',id)
+        axios.delete('http://localhost:8000/api/delete_employee/id=' + id)
         .then(res => console.log(res.data)) }
   
     return (
