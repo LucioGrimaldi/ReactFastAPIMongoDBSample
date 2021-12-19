@@ -38,7 +38,7 @@ async def get_employee(key, value):
         return response
     raise HTTPException(404, f"Employee with {key} = {value} not found")
 
-@app.post("/api/add_employee", response_model=Employee)
+@app.post("/api/add_employee/", response_model=Employee)
 async def add_employee(employee:Employee):
     response = await create_employee(employee.dict())
     if response:
