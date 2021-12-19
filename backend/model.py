@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 
 class Employee(BaseModel):
-    id : int
+    id : str
     name : str
     surname : str
     phone_number : str
